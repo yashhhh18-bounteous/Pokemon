@@ -1,0 +1,56 @@
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { fetchPokemonList } from './plp_fetch';
+import React from 'react';
+import { PokemonCard } from './PokemonCard';
+import { useInView } from 'react-intersection-observer';
+
+export default function PokemonPlp() {
+  const {
+    data,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+    status,
+  } = useInfiniteQuery({
+    queryKey: ["Pokemon", "list"],
+    queryFn: fetchPokemonList,
+    initialPageParam: 0,
+    getNextPageParam: (_lastPage, pages) => pages.length * 20,
+  });
+
+ 
+  const { ref, inView } = useInView();
+
+ 
+  React.useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
+
+  if (status === "pending") return <p>Loading...</p>;
+  if (status === "error") return <p>Error: {error.message}</p>;
+
+    return (
+    <>
+      <div className="grid gap-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
+        {data.pages.map((page, i) => (
+          <React.Fragment key={i}>
+            {page.results.map((pokemon) => (
+              <PokemonCard key={pokemon.name} name={pokemon.name} />
+            ))}
+          </React.Fragment>
+        ))}
+      </div>
+
+      <div ref={ref} style={{ height: 1 }} />
+
+      <div className="text-center mt-4">
+        {isFetchingNextPage && <p>Loading more...</p>}
+        {isFetching && !isFetchingNextPage && <p>Fetching...</p>}
+      </div>
+    </>
+  );
+}
