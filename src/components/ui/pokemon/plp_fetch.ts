@@ -21,9 +21,15 @@ export const individualPokemonContent=z.object({
     sprites:z.object({
         front_shiny:z.string(),
     }),
-    types:z.object({
-        name:z.string(),
-    }),
+    types:z.array(
+        z.object({
+         
+            type:z.object({
+                name:z.string(),
+                url:z.string(),
+            })
+        })
+    )
   
 
 
@@ -54,4 +60,29 @@ export async function fetchPokemonList({pageParam=0}){
     
 }
 
+
+export async function fetchPokemonDetail(url:string){
+
+    const res=await fetch(url);
+
+    if(!res.ok){
+        throw new Error("Pokemon details fetching failed")
+
+
+    }
+
+
+    const data=await res.json();
+try{
+    return individualPokemonContent.parse(data);
+}
+catch(e){
+    console.error("Zod error",e);
+    console.log("raw api respons",z.json);
+    throw e;
+}
+
+}
+
+export type fetchPokemonDetail =z.infer<typeof individualPokemonContent>
 
