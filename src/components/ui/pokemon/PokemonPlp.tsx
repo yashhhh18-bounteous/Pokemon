@@ -1,8 +1,9 @@
-import { useInfiniteQuery, useQueries, useQuery } from '@tanstack/react-query';
-import { fetchPokemonDetail, fetchPokemonList } from './plp_fetch';
+import { useInfiniteQuery, useQueries} from '@tanstack/react-query';
+import { fetchPokemonList } from './plp_fetch';
 import React from 'react';
 import PokemonCard from './PokemonCard';
 import { useInView } from 'react-intersection-observer';
+import { fetchPDPPokemonDetail } from './pdp_fetch';
 
 
 export default function PokemonPlp() {
@@ -27,7 +28,7 @@ export default function PokemonPlp() {
   const detailQuery = useQueries({
     queries: pokemonRefs.map((pokemon) => ({
       queryKey: ["pokemon", "details", pokemon.url],
-      queryFn: () => fetchPokemonDetail(pokemon.url),
+      queryFn: () => fetchPDPPokemonDetail(pokemon.url),
       staleTime: Infinity,
     }))
   })
@@ -62,7 +63,7 @@ export default function PokemonPlp() {
 <PokemonCard
   key={pokemon.name}
   name={pokemon.name}
-  image={detail.data?.sprites.front_shiny ?? null}
+  image={detail.data?.sprites.other["official-artwork"].front_default ?? null}
   types={detail.data?.types.map((t) => t.type.name) ?? []}
   height={detail.data?.height}
   weight={detail.data?.weight}

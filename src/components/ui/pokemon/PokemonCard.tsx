@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 type PokemonCardProps = {
   name: string
   image: string | null
@@ -20,6 +22,8 @@ export default function PokemonCard({
   }
  
   return (
+
+    <Link to={`pokemon/${name}`}>
     <div className="border border-gray-300 rounded-xl p-4 m-3 w-[200px] shadow-md text-center bg-gray-50">
       <h3 className="my-2 text-lg font-semibold">
         #{name.charAt(0).toUpperCase() + name.slice(1)}
@@ -55,6 +59,7 @@ export default function PokemonCard({
         </div>
       </div>
     </div>
+    </Link>
   )
 }
  
