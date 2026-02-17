@@ -20,10 +20,10 @@ export default function PokemonPlp() {
     getNextPageParam: (_lastPage, pages) => pages.length * 20,
   });
 
- 
+
   const { ref, inView } = useInView();
 
- 
+
   React.useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
@@ -33,9 +33,10 @@ export default function PokemonPlp() {
   if (status === "pending") return <p>Loading...</p>;
   if (status === "error") return <p>Error: {error.message}</p>;
 
-    return (
+  return (
     <>
-      <div className="grid gap-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
+      <div className="grid gap-2 grid-cols-1 min-[400px]:grid-cols-2   min-[426px]:grid-cols-3 
+  min-[769px]:grid-cols-4">
         {data.pages.map((page, i) => (
           <React.Fragment key={i}>
             {page.results.map((pokemon) => (
