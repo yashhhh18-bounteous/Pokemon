@@ -18,59 +18,46 @@ export function PokemonCard({ name }: { name: string }) {
   if (error) return <p>Error</p>;
 
 return (
-  <div
-    style={{
-      border: "1px solid #ccc",
-      borderRadius: 12,
-      padding: 16,
-      margin: 12,
-      width: 200,
-      boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-      textAlign: "center",
-      backgroundColor: "#f8f8f8",
-      transition: "transform 0.2s",
-    }}
-    onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
-    onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
-  >
-    <h3 style={{ margin: "8px 0", fontSize: 18 }}>
-      #{data.id} {data.name.charAt(0).toUpperCase() + data.name.slice(1)}
-    </h3>
+<div
+  className="border border-gray-300 rounded-xl p-4 m-3 w-[200px] shadow-md text-center bg-gray-50 transition-transform duration-200 hover:scale-105"
+>
+  <h3 className="my-2 text-lg font-semibold">
+    #{data.id} {data.name.charAt(0).toUpperCase() + data.name.slice(1)}
+  </h3>
 
-    <img
-      src={data.sprites.front_default}
-      alt={data.name}
-      style={{ width: 100, height: 100 }}
-    />
+  <img
+    src={data.sprites.front_default}
+    alt={data.name}
+    className="w-[100px] h-[100px] mx-auto"
+  />
 
-    <div style={{ display: "flex", justifyContent: "space-around", marginTop: 8 }}>
-      <div>
-        <strong>Height:</strong> {data.height}
-      </div>
-      <div>
-        <strong>Weight:</strong> {data.weight}
-      </div>
-    </div>
 
-    <div style={{ marginTop: 8 }}>
-      {data.types.map((t: any) => (
-        <span
-          key={t.type.name}
-          style={{
-            display: "inline-block",
-            backgroundColor: "#eee",
-            borderRadius: 8,
-            padding: "4px 8px",
-            margin: 2,
-            fontSize: 12,
-            fontWeight: 500,
-          }}
-        >
-          {t.type.name.charAt(0).toUpperCase() + t.type.name.slice(1)}
-        </span>
-      ))}
-    </div>
+
+    <div className="mt-2">
+    {data.types.map((t: any) => (
+      <span
+        key={t.type.name}
+        className="inline-block bg-gray-200 rounded-lg px-2 py-1 m-1 text-xs font-medium"
+      >
+        {t.type.name.charAt(0).toUpperCase() + t.type.name.slice(1)}
+      </span>
+    ))}
   </div>
-);
 
+<div className="grid grid-cols-2 text-center mt-3">
+  <div>
+    <p className="text-sm font-medium text-gray-500">Height</p>
+    <p className="font-semibold">{data.height}</p>
+  </div>
+
+  <div>
+    <p className="text-sm font-medium text-gray-500">Weight</p>
+    <p className="font-semibold">{data.weight}</p>
+  </div>
+</div>
+
+
+
+</div>
+  );
 }
