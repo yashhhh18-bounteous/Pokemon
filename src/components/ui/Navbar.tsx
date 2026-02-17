@@ -10,7 +10,7 @@ import { SearchIcon } from 'lucide-react'
 
 const Navbar = () => {
     return (
-        <div className="flex flex-wrap justify-between border-b border-black sticky top-0 bg-[url('C:\practice\Pokemon_Project\Pokedex\public\Pokemon-Pokedex.avif')]   bg-cover
+        <div className="flex flex-wrap justify-between border-b border-black sticky top-0 bg-[url('Pokemon-Pokedex.avif')]   bg-cover
   bg-center
   bg-no-repeatz-50 p-2 z-1000">
 
