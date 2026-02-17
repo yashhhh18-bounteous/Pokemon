@@ -1,5 +1,9 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-
+@layer utilities {
+  .bg-pokedex {
+    background-image: url('/Pokemon-Pokedex.avif');
+  }
+}
 
